@@ -11,6 +11,8 @@ public class Main {
         boolean quit = false;
         int choice = 0;
         printInstructions();
+
+        //  While loop will continue to ask for the user input until the exit option is selected.
         while (!quit) {
             System.out.println("What would you like to do? ");
             choice = scanner.nextInt();
