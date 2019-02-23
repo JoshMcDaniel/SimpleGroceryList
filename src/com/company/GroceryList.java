@@ -27,29 +27,51 @@ public class GroceryList {
         }
     }
 
-    //  This method changes the string value of the element defined by the user.
-    public void modifyGroceryItem(int position, String newItem) {
+    //  This method verifies the current item exists in the grocery list then calls the method for updating it.
+    public void modifyGroceryItem(String currentItem, String newItem) {
+        int position = findItem(currentItem);
+        if (position >= 0) {
+            modifyGroceryItem(position, newItem);
+        } else {
+            System.out.println(currentItem + " is not in the grocery list.");
+        }
+    }
+
+    //  This overloaded method changes the string value of the element defined by the user.
+    private void modifyGroceryItem(int position, String newItem) {
         groceryList.set(position, newItem);
         //  Position+1 to offset the array 0-index. Helps with human readability.
         System.out.println("Grocery list item " + (position+1) + " has been modified.");
     }
 
-    //  Removes an element from the array list.
-    public void removeGroceryItem(int position) {
+    //  This method verifies the current item exists in the grocery list then calls the method for removing it.
+    public void removeGroceryItem(String item) {
+        int position = findItem(item);
+        if (position >= 0) {
+            removeGroceryItem(position);
+        }
+    }
+
+    //  This overloaded method removes an element from the array list.
+    private void removeGroceryItem(int position) {
         String theItem = groceryList.get(position);
         groceryList.remove(position);
         //  Position+1 to offset the array 0-index. Helps with human readability.
         System.out.println("Grocery list item " + (position+1) + " has been removed.");
     }
 
-    //  This method queries the array list for the string value input from the user.
-    public String findItem(String searchItem) {
-        //  indexOf will return the index of the element if the value is in the list or -1 if it is not.
-        int position = groceryList.indexOf(searchItem);
+    public boolean searchList(String searchItem) {
+        int position = findItem(searchItem);
         if (position >= 0) {
-            return groceryList.get(position);
+            return true;
         }
-        return null;
+        return false;
+    }
+
+    //  This method queries the array list for the string value input from the user.
+    private int findItem(String searchItem) {
+        //  indexOf will return the index of the element if the value is in the list or -1 if it is not.
+        return groceryList.indexOf(searchItem);
     }
 
 }
